@@ -1,3 +1,5 @@
+//A big thank you to https://github.com/enricozb/enricozb.github.io and his work, which served as the foundation for my blog in the beginning
+
 #import "tag.typ"
 #import "@preview/cetz:0.5.2"
 
@@ -69,17 +71,16 @@
   }
 
   #show footnote: it => {
-    context {
-      let count = counter(footnote).get().at(0)
-      if target() == "html" {
-        tag.a(
-          id: "footnote-" + str(count) + "-number",
-          href: "#footnote-" + str(count) + "-body",
-          it
-        )
-      } else {
-        it
-      }
+    if target() == "html" {
+      let number = counter(footnote).display(it.numbering)
+      let fn-id = "fn-" + number
+      let ref-id = "fnref-" + number
+
+      html.sup(class: "footnote-ref", html.a(
+        href: "#" + fn-id,
+        id: ref-id,
+        number,
+      ))
     }
   }
 
@@ -140,9 +141,9 @@
               for (i, note) in notes.enumerate() {
                 tag.div[
                   #tag.a(
-                    id: "footnote-" + str(i + 1) + "-body",
+                    id: "fn-" + str(i + 1),
                     class: "footnote-body",
-                    href: "#footnote-" + str(i + 1) + "-number",
+                    href: "#fnref-" + str(i + 1),
                     str(i + 1)
                   )
                   #note.body
