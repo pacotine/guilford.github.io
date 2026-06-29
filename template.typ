@@ -101,6 +101,8 @@
       it
     }
   }
+  
+  #show figure: fig => { centered(fig) }
 
   #tag.html[
     #tag.head[

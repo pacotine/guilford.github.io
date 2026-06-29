@@ -347,6 +347,10 @@ figcaption {
   text-align: center;
 }
 
+figcaption > em {
+  font-style: normal;
+}
+
 hr {
   margin-top: 2em;
   margin-bottom: 2em;
